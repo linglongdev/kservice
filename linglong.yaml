@@ -1,0 +1,52 @@
+package:
+  id: kservice
+  name: kservice
+  version: 5.54.0
+  kind: lib
+  discription: |
+    kservice
+
+base:
+  id: org.deepin.base
+  version: 20.5.0
+
+#pkg-kde-tools gettext graphviz 
+depends:
+- id: qtbase
+  version: 5.11.3.15
+- id: qttools
+  version: 5.11.3
+- id: qtx11extras
+  version: 5.11.3
+- id: kconfig
+  version: 5.54.0
+- id: kwindowsystem
+  version: 5.54.0
+- id: kcoreaddons
+  version: 5.54.0
+- id: ki18n
+  version: 5.54.0
+- id: kcrash
+  version: 5.54.0
+- id: kdbusaddons
+  version: 5.54.0
+
+source:
+  kind: git
+  url: https://github.com/deepin-community/kservice.git
+  version: master
+  commit: 26f98c47489f2735a94eec888e001fd3654d8aea
+
+  patch: []
+build:
+  kind: manual
+  manual:
+    configure: |
+      #exec bash
+      mkdir build
+      cd build
+      cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+            -DCMAKE_INSTALL_LIBDIR=${PREFIX}/lib \
+            -DAPPLICATIONS_MENU_NAME="kf5-applications.menu" ..
+      make -j
+      make -j install
